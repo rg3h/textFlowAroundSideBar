@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>flowUsingFloatAndFlex</title>
+  <meta name="mobile-web-app-capable"       content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="msapplication-tap-highlight"  content="no"  />
+  <link rel="stylesheet"                    href="./index.css"/>
+
+<style>
+.sidebarAndTextParentSection {
+  background: rgb(100, 100, 100);    /* just to illustrate the flow */
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.anchorTextForSidebar {
+  background: rgb(244, 228, 228);
+  order: 1;
+}
+
+.sidebar {
+  align-self: center;               /* only active when in a flexbox */
+  background: rgb(230, 255, 230);
+  float: right;                     /* only active when not in a flexbox */
+  height: 25em;                     /* height you want the sidebar to be */
+  order: 2;                         /* only active when in a flexbox */
+  text-align: center;
+  width: 15em;                      /* width you want ths sidebar to be */
+}
+
+/* when narrow, change the sidebar to tuck under the anchorTextForSidebar */
+@media screen and (max-width: 600px) {
+  .sidebarAndTextParentSection {display:flex; flex-direction: column;}
+  .anchorTextForSidebar   {order: 1;}
+  .sidebar                {order: 2;}
+  .text2                  {order: 3;}
+}
+</style>
+</head>
+
+<body>
+  <div class="middle">
+    <div class="instructions">
+      Instructions:<br>
+      Resize the browser to see the sidebar move from float right to
+      centered.<br>
+      View the page source to see the relevant HTML and CSS.
+    </div>
+
+    <div>
+      This is some text before the sidebar.
+      This is some text before the sidebar.
+      This is some text before the sidebar.
+      This is some text before the sidebar.
+      This is some text before the sidebar.
+      This is some text before the sidebar.
+      This is some text before the sidebar.
+      This is some text before the sidebar.
+    </div>
+
+    <div class="sidebarAndTextParentSection">
+      <div class="sidebar">sidebar</div>
+
+      <div class="anchorTextForSidebar">
+        text1 Prow scuttle parrel provost Sail ho shrouds spirits boom
+        mizzenmast yardarm. Pinnace holystone mizzenmast quarter
+        crow's nest nipperkin grog yardarm hempen halter furl. Swab
+        barque interloper chantey doubloon starboard grog black jack
+        gangway rutters.
+        <br>
+        Prow scuttle parrel provost Sail ho shrouds spirits boom
+        mizzenmast yardarm. Pinnace holystone mizzenmast quarter
+        crow's nest nipperkin grog yardarm hempen halter furl. Swab
+        barque interloper chantey doubloon starboard grog black jack
+        gangway rutters.
+      </div>
+    </div> <!-- sidebarAndTextParentSection -->
+
+    <div>
+      Trysail Sail ho Corsair red ensign hulk
+      smartly boom jib rum gangway. Case shot Shiver me timbers
+      gangplank crack Jennys tea cup ballast Blimey lee snow crow's
+      nest rutters. Fluke jib scourge of the seven seas boatswain
+      schooner gaff booty Jack Tar transom spirits.
+      <br>
+
+      Deadlights jack lad schooner scallywag dance the hempen jig
+      carouser broadside cable strike colors. Bring a spring upon her
+      cable holystone blow the man down spanker Shiver me timbers to
+      go on account lookout wherry doubloon chase. Belay yo-ho-ho
+      keelhaul squiffy black spot yardarm spyglass sheet transom heave to.
+    </div>
+    <br>
+    <div>
+      This is some text after the sidebar.
+      This is some text after the sidebar.
+      This is some text after the sidebar.
+      This is some text after the sidebar.
+      This is some text after the sidebar.
+      This is some text after the sidebar.
+      This is some text after the sidebar.
+      This is some text after the sidebar.
+      This is some text after the sidebar.
+      This is some text after the sidebar.
+      This is some text after the sidebar.
+      This is some text after the sidebar.
+      This is some text after the sidebar.
+      This is some text after the sidebar.
+      This is some text after the sidebar.
+      This is some text after the sidebar.
+    </div>
+  </div> <!-- middle -->
+</body>
+</html>

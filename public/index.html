@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--_____________________________
+    |                            |
+    | ---- - ---- --- --- -  --- |
+    | -- --- - ---    +--------+ |       _            _      __ _
+    | ---- -- -----   |        | |      | |_ _____  _| |_   / _| | _____      __
+    | --- --- ----    |        | |      | __/ _ \ \/ / __| | |_| |/ _ \ \ /\ / /
+    | -- --- ---- --  |        | |      | ||  __/>  <| |_  |  _| | (_) \ V  V /
+    | - ------ ----   +--------+ |       \__\___/_/\_\\__| |_| |_|\___/ \_/\_/
+    | --- --- ----- ---- --- --  |
+    | - ---- - ------ ---- ---   |      css to control text flow around an
+    | ---- --- - ----- ---- ---  |      image on the right side that moves
+    |  __________________________|__    under the text when the window is
+    |  \                            \   narrow.
+    |  /                            /
+    \_/____________________________/
+-->
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>flowingTextAroundSideBar</title>
+  <meta name="description"                  content="flowing text around a sidebar when the window resizes"/>
+  <meta name="mobile-web-app-capable"       content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="msapplication-tap-highlight"  content="no"  />
+  <meta name="description"                  content="flowing text around a sidebar when the window resizes"/>
+  <meta name="theme-color"                  content="#EFF4FF">
+  <meta property="og:title"                 content="flowingText">
+  <meta property="og:description"           content="flowing text around a moving sidebar"/>
+  <meta property="og:image"                 content="./assets/images/logo.png">
+  <meta property="og:url"                   content="www.medley.com/htmlCssJsNotes/flowTextAroundASideBar/index.html">
+
+  <link rel="apple-touch-icon" href="./assets/images/logo.png"/>
+  <link rel="icon"             href="./assets/images/logo.png"/>
+  <link rel="stylesheet"       href="./assets/fonts/monaSans/monaSans.css"/>
+  <link rel="stylesheet"       href="./index.css"/>
+  <script type="module"        src="./main.js"></script>
+
+</head>
+<body>
+  <div class="middle">   <!-- this is the white page -->
+    <div class="titleContainer">
+      <img class="titleImg" src="./assets/images/logo.png">
+      <div class="titleText">
+        Changing Text Flow Around a Sidebar<br>
+        When Resizing the Window</div>
+      <div class="titleDate"></div>
+    </div>
+
+    <div class="sideBySideContainer">
+      <div class="figureContainer">
+        <img class="figureImg" style="max-height:400px" src="assets/images/sidebarOnRight.jpg"/>
+        <br>
+        <div class="figureText" >green sidebar on the right</div>
+      </div>
+
+      <div class="figureContainer">
+        <img class="figureImg" style="max-height:300px" src="assets/images/sidebarUnder.jpg"/>
+        <br>
+        <div class="figureText">green sidebar tucked and centered</div>
+      </div>
+    </div>
+
+    <h3>Summary</h3>
+    To support a sidebar located on the far right for a desktop and
+    centered for a mobile device:
+    <div class="codeBox">
+<b>HTML</b>
+  &lt;div class="parentSection"&gt;
+    &lt;div class="sidebar"&gt;sidebar content goes here&lt;/div&gt;
+    &lt;div class="anchorText"&gt;sidebar renders beside or after this text.&lt;/div&gt;
+  &lt;/div&gt;
+    </div> <!-- codeBox -->
+
+    <div class="codeBox">
+<b>CSS</b>
+  .sidebarParentSection {
+    flex-direction: column; /* no effect until we change to display:flex */
+  }
+
+  .sidebar {
+    align-self: centerl
+    float: right;
+  }
+
+  @media screen and (max-width: 600px) {
+    .sidebarParentSection {display:flex;}
+    .anchorText           {order: 1;}
+    .sidebar              {order: 2;}
+  }
+    </div> <!-- codeBox -->
+
+    <h2>Explanation</h2>
+    For a wide window, you may want a sidebar on the far right,
+    anchored to some text that flows around it.
+    <br>
+    Here is an example, where the green rectangle is the sidebar and
+    it should start at the same height as the text shown with a red
+    background.
+
+    <div class=".singleFigureContainer">
+      <div class="figureContainer">
+        <img class="figureImg" height=350
+             src="assets/images/sidebarOnRight.jpg" /><br>
+        <div class="figureText">
+          a wide window with the sidebar on the right
+        </div>
+      </div>
+    </div>
+    As you add more text above, beside, or below the sidebar, the text
+    should flow around the sidebar. When the window is resized, the
+    sidebar should stay over on the right.
+    <br>
+    <br>
+    You can accomplish this by doing <b>two</b> things:
+    <ol>
+      <li>the sidebar css:
+        <div class="codeBox" style="margin: 0 0 1rem 0;">
+          .sideBar {
+            float: right;
+          }
+        </div>
+      </li>
+      <li>the sidebar HTML comes <b>before</b> the anchoring
+      background-red text so that it floats to the right:
+        <div class="codeBox" style="margin: 0 0 1rem 0;">
+          &lt;div class="sideBar"&gt;sidebar&lt;/div&gt;
+          &lt;div&gt;This is some text the sidebar anchors to.&lt;/div&gt;
+        </div>
+    </ol>
+    <br>
+    The <b>problem</b> happens when we want to change the layout for
+    a narrow window, such as with a mobile device.  Here we want the
+    sidebar to scoot <b>under</b> the anchor text and be centered. We
+    do not appear to the right of the anchoring text. This normally
+    means the sidebar needs to come <b>after</b>the background-red
+    text in the DOM.
+
+    <div class="figureContainer">
+      <img class="figureImg" height=350 src="assets/images/sidebarUnder.jpg"/>
+      <div class="figureText">tucked and centered</div>
+    </div>
+
+    <h2>Solution</h2>
+    Fortunately, css flexboxes allow you to change the order of
+    elements without having to move the element in the HTML.
+    <div class="codeBox">
+      .anchorText  {order: 1;}
+      .sidebar {align-self: center; order: 2;}  // render after the text and center
+    </div>
+    <br>
+    This effectively moves the sidebar after the red-background
+    anchoring text even though it appears before it in the DOM.
+    <br><br>
+
+
+    <h3>Bringing It All Together</h3>
+    <ol>
+      <li>we create an optional enclosing parent div and place the
+      sidebar before the anchoring text:
+        <div class="codeBox">
+<b>HTML</b>
+  &lt;div class="parentSection"&gt;
+  &lt;div class="sidebar"&gt;sidebar&lt;/div&gt; &lt;-- place before anchor text --&gt;
+  &lt;div class="anchorText"&gt;anchor text here.&lt;/div&gt;
+  &lt;/div&gt;
+        </div>  <!-- codeBox -->
+      </li>
+      <br><br>
+
+      <li>we create css that will trigger when the window gets narrow
+        and adjust the layout and order:
+        <div class="codeBox">
+<b>CSS</b>
+  .sidebarParentSection {
+    flex-direction: column; /* no effect until we change to display:flex */
+  }
+
+  .sidebar {
+    align-self: centerl
+    float: right;
+  }
+
+  @media screen and (max-width: 600px) {
+    .sidebarParentSection {display:flex;}
+    .anchorText           {order: 1;}
+    .sidebar              {order: 2;}
+  }
+        </div> <!-- codeBox -->
+      </li>
+    </ol>
+    <br>
+
+    Here is a demo. Resize the window to see the effect:&nbsp;&nbsp;
+    <a href="flowUsingFloatAndFlex/index.html">flow using float and flex</a>
+    <br>
+  </div> <!-- middle -->
+</body>
+</html>
